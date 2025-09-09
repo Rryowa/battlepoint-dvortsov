@@ -26,7 +26,7 @@ class CarTest extends TestCase {
             'updated_at' => $car->updated_at->toISOString()
         ];
 
-        $this->put(route('cars.update', $car), $payload)->assertRedirect(route('dealerships.index'));
+        $this->put(route('cars.update', $car), $payload)->assertRedirect(route('cars.index'));
 
         $this->assertDatabaseHas('cars', ['id' => $car->id, 'make' => $payload['make']]);
     }
@@ -34,7 +34,7 @@ class CarTest extends TestCase {
     public function test_user_can_soft_delete_car(): void {
         $car = Car::factory()->create();
 
-        $this->delete(route('cars.destroy', $car))->assertRedirect(route('dealerships.index'));
+        $this->delete(route('cars.destroy', $car))->assertRedirect(route('cars.index'));
 
         $this->assertSoftDeleted('cars', ['id' => $car->id]);
     }
