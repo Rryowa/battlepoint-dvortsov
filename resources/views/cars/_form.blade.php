@@ -30,8 +30,8 @@
             @endforeach
         </select>
     </div>
-    @isset($car)
+    @if($car->exists)
         <input type="hidden" name="updated_at" value="{{ $car->updated_at->toISOString() }}">
-    @endisset
+    @endif
     <button class="btn btn-primary">Save</button>
 </form>
