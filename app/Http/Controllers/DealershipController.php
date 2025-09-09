@@ -15,7 +15,8 @@ class DealershipController extends Controller {
     }
 
     public function create() {
-        return view('dealerships.create');
+        $dealership = Dealership::make();
+        return view('dealerships.form-page', compact('dealership'));
     }
 
     public function store(StoreDealershipRequest $request) {
@@ -28,7 +29,7 @@ class DealershipController extends Controller {
     }
 
     public function edit(Dealership $dealership) {
-        return view('dealerships.edit', compact('dealership'));
+        return view('dealerships.form-page', compact('dealership'));
     }
 
     public function update(UpdateDealershipRequest $request, Dealership $dealership) {

@@ -24,9 +24,9 @@ class CarController extends Controller {
         ]);
     }
 
-    public function store(StoreCarRequest $request) {
-        DB::transaction(fn () => Car::create($request->validated()));
-        return redirect()->route('cars.index')->with('success', 'Car added.');
+    public function store(StoreCarRequest $request, Dealership $dealership) {
+        DB::transaction(fn () => $dealership->cars()->create($request->validated()));
+        return redirect()->route('dealerships.cars.index', $dealership)->with('success', 'Car added.');
     }
 
     public function show(Car $car) {
@@ -40,6 +40,11 @@ class CarController extends Controller {
             'car' => $car,
             'dealerships' => $dealerships,
         ]);
+    }
+
+    public function topExpensive() {
+        $cars = cache()->remember('top10_cars', 3600, fn() => Car::with('dealership')->orderByDesc('price')->take(10)->get());
+        return view('cars.index', compact('cars'));
     }
 
     /**
