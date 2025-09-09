@@ -10,7 +10,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Performed at</label>
-        <input type="date" name="performed_at" class="form-control" value="{{ old('performed_at', isset($maintenance)? $maintenance->performed_at->format('Y-m-d') : '') }}" required>
+        <input type="date" name="performed_at" class="form-control" value="{{ old('performed_at', $maintenance->performed_at?->format('Y-m-d')) }}" required>
     </div>
     <div class="mb-3">
         <label class="form-label">Cost</label>

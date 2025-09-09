@@ -26,9 +26,9 @@
             <tbody>
             @foreach($car->maintenances as $maintenance)
                 <tr>
-                    <td>{{ $maintenance->performed_at->format('Y-m-d') }}</td>
                     <td>{{ $maintenance->mileage }}</td>
-                    <td>{{ number_format($maintenance->cost, 2) }}</td>
+                    <td>{{ $maintenance->performed_at?->format('Y-m-d') }}</td>
+                    <td>{{ $maintenance->cost }}</td>
                     <td>{{ $maintenance->description }}</td>
                     <td>
                         <a href="{{ route('maintenances.edit', $maintenance) }}" class="btn btn-sm btn-primary">Edit</a>
