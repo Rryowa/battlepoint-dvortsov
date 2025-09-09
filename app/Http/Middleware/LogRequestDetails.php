@@ -22,8 +22,6 @@ class LogRequestDetails
             'method' => $request->method(),
             'uri' => $request->fullUrl(),
             'ip' => $request->ip(),
-            'headers' => $request->headers->all(),
-            'body' => $request->all(),
             'response_status' => $response->getStatusCode(),
         ]);
 
