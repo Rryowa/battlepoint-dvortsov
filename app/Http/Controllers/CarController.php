@@ -14,9 +14,14 @@ class CarController extends Controller {
         return view('cars.index', compact('cars'));
     }
 
-    public function create() {
+    public function create(Dealership $dealership) {
         $dealerships = Dealership::pluck('name', 'id');
-        return view('cars.create', compact('dealerships'));
+        $car = Car::make();
+        return view('cars.form-page', [
+            'car' => $car,
+            'dealerships' => $dealerships,
+            'currentDealership' => $dealership,
+        ]);
     }
 
     public function store(StoreCarRequest $request) {
@@ -31,8 +36,10 @@ class CarController extends Controller {
 
     public function edit(Car $car) {
         $dealerships = Dealership::pluck('name', 'id');
-        
-        return view('cars.edit', compact('car', 'dealerships'));
+        return view('cars.form-page', [
+            'car' => $car,
+            'dealerships' => $dealerships,
+        ]);
     }
 
     /**
