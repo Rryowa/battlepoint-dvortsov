@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
+            $table->string('make', 100);
+            $table->string('model', 100);
+            $table->year('year');
+            $table->decimal('price', 10, 2);
+            $table->enum('status', ['in_stock', 'sold'])->default('in_stock');
+            $table->foreignId('dealership_id')->nullable()->constrained()->nullOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

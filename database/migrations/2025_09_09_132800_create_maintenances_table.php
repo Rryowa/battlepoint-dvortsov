@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dealerships', function (Blueprint $table) {
+        Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 150)->unique();
-            $table->string('city', 120);
-            $table->string('phone_number', 30);
+            $table->foreignId('car_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('mileage');
+            $table->date('performed_at');
+            $table->decimal('cost', 10, 2)->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dealerships');
+        Schema::dropIfExists('maintenances');
     }
 };
