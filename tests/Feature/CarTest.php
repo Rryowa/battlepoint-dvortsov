@@ -20,6 +20,25 @@ class CarTest extends TestCase {
         $this->assertDatabaseHas('cars', ['make'=>$payload['make']]);
     }
 
+    public function test_user_can_update_car(): void {
+        $car = Car::factory()->create();
+        $payload = Car::factory()->make()->toArray() + [
+            'updated_at' => $car->updated_at->toISOString()
+        ];
+
+        $this->put(route('cars.update', $car), $payload)->assertRedirect(route('dealerships.index'));
+
+        $this->assertDatabaseHas('cars', ['id' => $car->id, 'make' => $payload['make']]);
+    }
+
+    public function test_user_can_soft_delete_car(): void {
+        $car = Car::factory()->create();
+
+        $this->delete(route('cars.destroy', $car))->assertRedirect(route('dealerships.index'));
+
+        $this->assertSoftDeleted('cars', ['id' => $car->id]);
+    }
+
     public function test_conflict_on_old_form(): void {
         $car = Car::factory()->create();
 

@@ -11,7 +11,7 @@
     <tbody>
     @foreach($dealerships as $d)
         <tr>
-            <td>{{ $d->name }}</td>
+            <td><a href="{{ route('dealerships.show', $d) }}">{{ $d->name }}</a></td>
             <td>{{ $d->city }}</td>
             <td>{{ $d->phoneNumber }}</td>
             <td><a href="{{ route('dealerships.edit',$d) }}" class="btn btn-sm btn-primary">Edit</a></td>

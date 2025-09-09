@@ -28,14 +28,14 @@ class MaintenanceController extends Controller {
 
         DB::transaction(fn () => $car->maintenances()->create($data));
 
-        return redirect()->route('cars.maintenances.index', $car)->with('success', 'Maintenance added');
+        return redirect()->route('cars.show', $car)->with('success', 'Maintenance added');
     }
 
-    public function edit(Car $car, Maintenance $maintenance) {
-        return view('maintenances.form-page', compact('car', 'maintenance'));
+    public function edit(Maintenance $maintenance) {
+        return view('maintenances.form-page', compact('maintenance'));
     }
 
-    public function update(Request $request, Car $car, Maintenance $maintenance) {
+    public function update(Request $request, Maintenance $maintenance) {
         $data = $request->validate([
             'mileage' => ['sometimes','integer','min:0'],
             'performed_at' => ['sometimes','date'],
@@ -45,11 +45,11 @@ class MaintenanceController extends Controller {
 
         DB::transaction(fn () => $maintenance->update($data));
 
-        return redirect()->route('cars.maintenances.index', $car)->with('success', 'Maintenance updated');
+        return redirect()->route('cars.show', $maintenance->car_id)->with('success', 'Maintenance updated');
     }
 
-    public function destroy(Car $car, Maintenance $maintenance) {
+    public function destroy(Maintenance $maintenance) {
         $maintenance->delete();
-        return redirect()->route('cars.maintenances.index', $car)->with('success', 'Maintenance deleted');
+        return redirect()->route('cars.show', $maintenance->car_id)->with('success', 'Maintenance deleted');
     }
 }
