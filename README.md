@@ -2,7 +2,15 @@
 Dealership(Салон) - справочная сущность - изменения  редки.
 Обслуживание - правки выполняются редко, чаще просто удаляют и создают новое.
 
-```sql
+```shell
+sudo -u postgres psql
+
 CREATE DATABASE battlepoint OWNER laravel_user;
 CREATE DATABASE battlepoint_test OWNER laravel_user;
+
+php artisan migrate:fresh --seed --env=testing
+php artisan test
+
+php artisan migrate:fresh --seed
+php artisan serve
 ```
